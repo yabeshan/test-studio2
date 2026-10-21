@@ -4,45 +4,689 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Минималистичные Кнопки</title>
-    <meta name="description" content="Элегантное минималистичное фронтенд-приложение с тактильными интерактивными кнопками и поддержкой установки на домашний экран iPad iOS 9+." />
+    <meta name="description" content="Минималистичное веб-приложение без бэкенда для iPad iOS 9+ с установкой на рабочий стол без полосок и отступов." />
     
-    <!-- Open Graph / SEO -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Минималистичные Кнопки" />
-    <meta property="og:description" content="Элегантное минималистичное фронтенд-приложение с тактильными интерактивными кнопками и поддержкой установки на домашний экран iPad iOS 9+." />
+    <meta property="og:description" content="Минималистичное веб-приложение для iPad iOS 9+ без бэкенда." />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
 
     <!-- Web App & Theme Color -->
-    <meta name="theme-color" content="#090d16" />
+    <meta name="theme-color" content="#000000" />
     <meta name="color-scheme" content="dark light" />
     
-    <!-- iOS 9+ iPad & iPhone Web Clip (Add to Home Screen) Meta Tags -->
+    <!-- iOS 9 iPad Web Clip Meta Tags (Full Screen Standalone without Safari bars) -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-touch-fullscreen" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Кнопки" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- Apple Touch Icons (including iPad non-retina 76x76, iPad retina 152x152, and 180x180) -->
+    <!-- Apple Touch Icons for iOS 9 iPad Retina & Standard -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/apple-touch-icon-120x120.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
 
-    <!-- Web App Manifest & Favicons -->
-    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Built-in CSS ensuring 100% immediate render on iOS 9 without white screen -->
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        background-color: #000000;
+        color: #f5f5f5;
+        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+        overflow-x: hidden;
+      }
+      body.theme-light {
+        background-color: #f8fafc;
+        color: #1e293b;
+      }
+      .app-container {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        min-height: 100vh;
+        width: 100%;
+      }
+      .top-header {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid #1a1a1a;
+        background-color: #000000;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      body.theme-light .top-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .header-title {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .controls-row {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        gap: 8px;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+      .ctrl-btn {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 10px;
+        border: 1px solid #262626;
+        background-color: #141414;
+        color: #e5e5e5;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        outline: none;
+        transition: opacity 0.15s, background-color 0.15s, -webkit-transform 0.1s;
+      }
+      .ctrl-btn:active {
+        -webkit-transform: scale(0.96);
+        transform: scale(0.96);
+      }
+      body.theme-light .ctrl-btn {
+        background-color: #f1f5f9;
+        border-color: #cbd5e1;
+        color: #334155;
+      }
+      .ctrl-btn-icon {
+        padding: 7px;
+      }
+      .ctrl-btn svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        display: block;
+      }
+      .btn-accent {
+        color: #38bdf8;
+      }
+      .btn-emerald {
+        color: #34d399;
+      }
+      .main-grid-wrapper {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        width: 100%;
+        max-width: 540px;
+      }
+      @media (min-width: 600px) {
+        .buttons-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
+      }
+      .action-button {
+        height: 120px;
+        border-radius: 18px;
+        border: 1px solid #262626;
+        background-color: #0c0c0c;
+        color: #f5f5f5;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 12px;
+        outline: none;
+        transition: background-color 0.15s, border-color 0.15s, color 0.15s, -webkit-transform 0.1s;
+      }
+      .action-button:active {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+      }
+      body.theme-light .action-button {
+        background-color: #ffffff;
+        border-color: #e2e8f0;
+        color: #1e293b;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      }
+      .action-button.is-active {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border-color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(255,255,255,0.2);
+      }
+      body.theme-light .action-button.is-active {
+        background-color: #0f172a !important;
+        color: #ffffff !important;
+        border-color: #0f172a !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      }
+      .action-button .btn-name {
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .action-button .btn-stat {
+        font-size: 11px;
+        margin-top: 6px;
+        opacity: 0.6;
+        font-family: monospace;
+      }
+      .footer-bar {
+        padding: 12px 16px;
+        text-align: center;
+        font-size: 12px;
+        color: #525252;
+        border-top: 1px solid #1a1a1a;
+      }
+      body.theme-light .footer-bar {
+        border-top-color: #e2e8f0;
+        color: #94a3b8;
+      }
+      /* Modal */
+      .guide-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .guide-modal-overlay.open {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+      }
+      .guide-modal {
+        background-color: #121212;
+        border: 1px solid #262626;
+        border-radius: 18px;
+        width: 100%;
+        max-width: 480px;
+        padding: 22px;
+        color: #f5f5f5;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      }
+      .modal-header {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .modal-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+      .modal-close-btn {
+        background: transparent;
+        border: none;
+        color: #888888;
+        cursor: pointer;
+        padding: 4px;
+      }
+      .modal-highlight {
+        background: #082f49;
+        border: 1px solid #0369a1;
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #bae6fd;
+        margin-bottom: 16px;
+      }
+      .step-item {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px;
+        border-radius: 12px;
+        background: #1a1a1a;
+        margin-bottom: 10px;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .step-num {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background: #0284c7;
+        color: #ffffff;
+        font-weight: bold;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        font-size: 12px;
+        -webkit-flex-shrink: 0;
+        flex-shrink: 0;
+      }
+      .step-text strong {
+        color: #ffffff;
+      }
+      .step-text p {
+        color: #a3a3a3;
+        font-size: 12px;
+        margin-top: 3px;
+      }
+      .close-action-btn {
+        width: 100%;
+        margin-top: 14px;
+        padding: 11px;
+        background: #262626;
+        border: none;
+        border-radius: 12px;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .close-action-btn:active {
+        background: #333333;
+      }
+    </style>
   </head>
-  <body class="bg-[#090d16] text-slate-100 antialiased select-none overflow-x-hidden touch-manipulation">
-    <div id="root"></div>
+  <body>
+    <!-- Complete pre-rendered UI: Works on iOS 9.3.5 Safari, Chrome on iOS, and modern browsers instantly -->
+    <div id="root">
+      <div class="app-container">
+        <!-- Top Header Controls -->
+        <header class="top-header">
+          <div class="header-title" id="app-title">Кнопки</div>
+          
+          <div class="controls-row">
+            <!-- Fullscreen Button -->
+            <button class="ctrl-btn" id="btn-fullscreen" title="На весь экран">
+              <svg viewBox="0 0 24 24" class="btn-accent">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+              </svg>
+              <span>Фуллскрин</span>
+            </button>
+
+            <!-- Guide Button -->
+            <button class="ctrl-btn" id="btn-open-guide" title="Инструкция: как убрать полосы и отступы">
+              <svg viewBox="0 0 24 24" class="btn-emerald">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                <path d="M6 6h10M6 10h10"></path>
+              </svg>
+              <span>Без полосок и отступов</span>
+            </button>
+
+            <!-- Sound Toggle -->
+            <button class="ctrl-btn ctrl-btn-icon" id="btn-sound" title="Включить/выключить звук">
+              <svg viewBox="0 0 24 24" id="sound-icon-on">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" id="sound-icon-off" style="display:none; color:#666;">
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              </svg>
+            </button>
+
+            <!-- Theme Toggle -->
+            <button class="ctrl-btn ctrl-btn-icon" id="btn-theme" title="Сменить тему">
+              <svg viewBox="0 0 24 24" id="theme-icon-sun">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" id="theme-icon-moon" style="display:none;">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </button>
+
+            <!-- Reset -->
+            <button class="ctrl-btn ctrl-btn-icon" id="btn-reset" title="Сбросить счетчики">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Main Buttons Grid -->
+        <main class="main-grid-wrapper">
+          <div class="buttons-grid">
+            <button class="action-button" data-id="1">
+              <span class="btn-name">Кнопка 1</span>
+              <span class="btn-stat">нажатий: 0</span>
+            </button>
+            <button class="action-button" data-id="2">
+              <span class="btn-name">Кнопка 2</span>
+              <span class="btn-stat">нажатий: 0</span>
+            </button>
+            <button class="action-button" data-id="3">
+              <span class="btn-name">Кнопка 3</span>
+              <span class="btn-stat">нажатий: 0</span>
+            </button>
+            <button class="action-button" data-id="4">
+              <span class="btn-name">Кнопка 4</span>
+              <span class="btn-stat">нажатий: 0</span>
+            </button>
+            <button class="action-button" data-id="5">
+              <span class="btn-name">Кнопка 5</span>
+              <span class="btn-stat">нажатий: 0</span>
+            </button>
+            <button class="action-button" data-id="6">
+              <span class="btn-name">Кнопка 6</span>
+              <span class="btn-stat">нажатий: 0</span>
+            </button>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer-bar">
+          Фронтенд для iPad iOS 9.3.5 • Web Clip
+        </footer>
+      </div>
+
+      <!-- Installation Guide Modal for iOS 9.3.5 Safari -->
+      <div class="guide-modal-overlay" id="guide-modal">
+        <div class="guide-modal">
+          <div class="modal-header">
+            <div class="modal-title">Как убрать полоски и отступы на iPad</div>
+            <button class="modal-close-btn" id="modal-close-x">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:#888;fill:none;stroke-width:2;">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div class="modal-highlight">
+            <strong>Важно для iPad iOS 9:</strong><br />
+            1. Открывать сайт нужно <strong>строго в браузере Safari</strong> (в Google Chrome на iOS Apple блокирует создание иконок на рабочий стол).<br />
+            2. При обычном просмотре Safari показывает серые полосы вкладок и адресную строку. При сохранении на экран «Домой» они полностью исчезают!
+          </div>
+
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <strong>В Safari нажмите значок «Поделиться» [↑]</strong>
+              <p>Прямоугольник со стрелкой вверх на верхней панели Safari (рядом с адресом).</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <strong>Выберите «На экран «Домой»» [+]</strong>
+              <p>Прокрутите нижний ряд серых квадратных иконок вправо и нажмите «На экран «Домой»».</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <strong>Нажмите «Добавить» и запустите иконку</strong>
+              <p>В правом верхнем углу окна нажмите «Добавить». Закройте Safari и откройте приложение прямо с рабочего стола iPad — полосок и рамок не будет.</p>
+            </div>
+          </div>
+
+          <button class="close-action-btn" id="modal-close-btn">Понятно, закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ES5 JavaScript Engine: 100% compatible with iOS 9.3.5 Safari & Chrome -->
+    <script>
+      (function() {
+        var soundEnabled = true;
+        var counts = [0, 0, 0, 0, 0, 0];
+        var actives = [false, false, false, false, false, false];
+        var audioCtx = null;
+
+        // Initialize AudioContext safely on iOS 9 (uses webkitAudioContext)
+        function playClickSound() {
+          if (!soundEnabled) return;
+          try {
+            var Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return;
+            if (!audioCtx) {
+              audioCtx = new Ctx();
+            }
+            if (audioCtx.state === 'suspended') {
+              audioCtx.resume();
+            }
+            var now = audioCtx.currentTime;
+            var osc = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(520, now);
+            osc.frequency.exponentialRampToValueAtTime(140, now + 0.04);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.05);
+          } catch (e) {
+            // Audio context not permitted yet
+          }
+        }
+
+        // Setup Buttons
+        var actionButtons = document.querySelectorAll('.action-button');
+        for (var i = 0; i < actionButtons.length; i++) {
+          (function(index) {
+            var btn = actionButtons[index];
+            function trigger() {
+              playClickSound();
+              counts[index]++;
+              actives[index] = !actives[index];
+              if (actives[index]) {
+                btn.className = 'action-button is-active';
+              } else {
+                btn.className = 'action-button';
+              }
+              var statSpan = btn.querySelector('.btn-stat');
+              if (statSpan) {
+                statSpan.innerHTML = 'нажатий: ' + counts[index];
+              }
+            }
+            btn.addEventListener('click', trigger, false);
+          })(i);
+        }
+
+        // Reset
+        var btnReset = document.getElementById('btn-reset');
+        if (btnReset) {
+          btnReset.addEventListener('click', function() {
+            playClickSound();
+            for (var j = 0; j < actionButtons.length; j++) {
+              counts[j] = 0;
+              actives[j] = false;
+              actionButtons[j].className = 'action-button';
+              var statSpan = actionButtons[j].querySelector('.btn-stat');
+              if (statSpan) {
+                statSpan.innerHTML = 'нажатий: 0';
+              }
+            }
+          }, false);
+        }
+
+        // Fullscreen
+        var btnFullscreen = document.getElementById('btn-fullscreen');
+        if (btnFullscreen) {
+          btnFullscreen.addEventListener('click', function() {
+            playClickSound();
+            var docEl = document.documentElement;
+            var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+            if (!isFs) {
+              if (docEl.requestFullscreen) {
+                docEl.requestFullscreen();
+              } else if (docEl.webkitRequestFullscreen) {
+                docEl.webkitRequestFullscreen();
+              }
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+              } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+              }
+            }
+          }, false);
+        }
+
+        // Sound Toggle
+        var btnSound = document.getElementById('btn-sound');
+        var soundOnIcon = document.getElementById('sound-icon-on');
+        var soundOffIcon = document.getElementById('sound-icon-off');
+        if (btnSound) {
+          btnSound.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+              playClickSound();
+              soundOnIcon.style.display = 'block';
+              soundOffIcon.style.display = 'none';
+            } else {
+              soundOnIcon.style.display = 'none';
+              soundOffIcon.style.display = 'block';
+            }
+          }, false);
+        }
+
+        // Theme Toggle
+        var btnTheme = document.getElementById('btn-theme');
+        var isLightTheme = false;
+        var themeSunIcon = document.getElementById('theme-icon-sun');
+        var themeMoonIcon = document.getElementById('theme-icon-moon');
+        if (btnTheme) {
+          btnTheme.addEventListener('click', function() {
+            playClickSound();
+            isLightTheme = !isLightTheme;
+            if (isLightTheme) {
+              document.body.className = 'theme-light';
+              themeSunIcon.style.display = 'none';
+              themeMoonIcon.style.display = 'block';
+            } else {
+              document.body.className = '';
+              themeSunIcon.style.display = 'block';
+              themeMoonIcon.style.display = 'none';
+            }
+          }, false);
+        }
+
+        // Modal Guide
+        var modal = document.getElementById('guide-modal');
+        var btnOpenGuide = document.getElementById('btn-open-guide');
+        var btnCloseX = document.getElementById('modal-close-x');
+        var btnCloseBtn = document.getElementById('modal-close-btn');
+
+        function openModal() {
+          playClickSound();
+          if (modal) modal.className = 'guide-modal-overlay open';
+        }
+        function closeModal() {
+          if (modal) modal.className = 'guide-modal-overlay';
+        }
+
+        if (btnOpenGuide) btnOpenGuide.addEventListener('click', openModal, false);
+        if (btnCloseX) btnCloseX.addEventListener('click', closeModal, false);
+        if (btnCloseBtn) btnCloseBtn.addEventListener('click', closeModal, false);
+        if (modal) {
+          modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+          }, false);
+        }
+      })();
+    </script>
+
+    <!-- Optional modern module for modern browser development -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
