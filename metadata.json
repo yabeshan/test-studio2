@@ -1,0 +1,6 @@
+{
+  "name": "Минималистичные Кнопки",
+  "description": "Элегантное минималистичное фронтенд-приложение с тактильными интерактивными кнопками и поддержкой установки на домашний экран iPad iOS 9+.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
