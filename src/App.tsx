@@ -138,13 +138,13 @@ export default function App() {
   return (
     <div
       className={`min-h-screen flex flex-col justify-between transition-colors duration-200 select-none ${
-        isDark ? 'bg-black text-neutral-100' : 'bg-neutral-50 text-neutral-900'
+        isDark ? 'bg-black text-neutral-100' : 'bg-lime-50 text-neutral-900'
       }`}
     >
       {/* Top Row / Header */}
       <header
         className={`px-3 sm:px-6 py-3 flex items-center justify-between border-b transition-colors pt-safe flex-wrap gap-2.5 ${
-          isDark ? 'border-neutral-900 bg-black' : 'border-neutral-200 bg-white'
+          isDark ? 'border-neutral-900 bg-black' : 'border-neutral-200 bg-lime-50'
         }`}
       >
         <div
@@ -152,7 +152,7 @@ export default function App() {
             isDark ? 'text-neutral-200' : 'text-neutral-800'
           }`}
         >
-          Кнопки
+          Кнопки22
         </div>
 
         {/* Action Controls in Header */}
